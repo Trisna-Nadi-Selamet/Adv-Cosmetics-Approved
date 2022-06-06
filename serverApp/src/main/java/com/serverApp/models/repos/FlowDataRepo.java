@@ -14,19 +14,18 @@ import org.apache.ibatis.annotations.Update;
 @Mapper
 public interface FlowDataRepo {
 
-	@Select("SELECT * FROM FLOWDATA ")
+	@Select("SELECT * FROM flowdata ")
     public  List <FlowData> findAll();
 
-    @Select("SELECT * FROM FLOWDATA WHERE ID = #{id}")
+	
+    @Select("SELECT * FROM flowdata WHERE id = #{id}")
     public FlowData findById(String id);
 
-    // @Delete("SELECT * FROM FLOWDATA WHERE ID = #{id}")
-    // public int deleteById(String id);
-
-    @Insert("INSERT INTO FLOWDATA (ID, FLOWDATA,DESCRIPTION,CATEGORY,STATUS) VALUES (#{id}, #{flowdata}, #{description}, #{category}, #{status})")
+  
+    @Insert("INSERT INTO flowdata(id,dataid,description,category,username,status) VALUES (#{id}, #{dataid}, #{description}, #{category}, #{userName}, #{status})")
     public int insert(FlowData flowData);
 
-    @Update("Update FLOWDATA set flowdata=#{flowdata}, description=#{description}, category=#{category}, status=#{status} where id=#{id}")
+    @Update("UPDATE flowdata SET dataid = #{dataid}, description = #{description}, category = #{category}, status = #{status} WHERE id = #{id}")
     public int update(FlowData flowData);
 
 

@@ -2,27 +2,28 @@ package com.serverApp.models;
 
 
 
+import java.util.Date;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+import javax.persistence.GeneratedValue;
 
 @Entity
 @Table(name= "FlowApprovalData")
 public class FlowApprovalData {
-	
+	private static final AtomicInteger count = new AtomicInteger(0);
 	
     @Id
-    private String id;
+    @GeneratedValue
+    private long id;
     
-    @Column(name="Approval",length = 50)
-	private String approval;
-    
-    @Column(name="FlowData",length = 50)
-	private String flowData;
+    @Column(name="Dataid",length = 50)
+	private String dataid;
     
     @Column(name="Username")
 	private int userName;
@@ -30,46 +31,67 @@ public class FlowApprovalData {
     @Column(name="Turn")
 	private boolean turn;
     
-    @Column(name="Approve",length = 5)
-	private int approve;
+    @Column(name="LevUser",length = 5)
+   	private int levUser;
+    
+    @Column(name="Approved",length = 5)
+	private int approved;
+    
+    @Column(columnDefinition="DATE")
+    private Date update_date;
+    
+    
+   
 	
 	public FlowApprovalData(){
 		
 	}
 	
-    public FlowApprovalData(String id,String approval,String flowData,int userName,boolean turn,int approve){
+    public FlowApprovalData(long id,String dataid,int userName,boolean turn,int levUser,int approved,Date update_date){
 		this.id = id;
-		this.approval = approval;
-		this.flowData = flowData;
+		this.dataid = dataid;
 		this.userName = userName;
 		this.turn = turn;
-		this.approve = approve;
+		this.levUser = levUser;
+		this.approved = approved;
+		this.update_date = update_date;
 	}
 
-    public String getId() {
+//    public String getId() {
+//		return id;
+//	}
+//
+//	public void setId() {
+//		UUID uuid = UUID.randomUUID();
+//		this.id = uuid.toString();
+//		
+//	}
+    public long getId() {
 		return id;
 	}
 
 	public void setId() {
-		UUID uuid = UUID.randomUUID();
-		this.id = uuid.toString();
-		
+		this.id = count.incrementAndGet();
+	}
+    
+	public Date getUpdate_date() {
+		return update_date;
 	}
 
-	public String getApproval() {
-		return approval;
+	
+
+	
+
+	public void setUpdate_date() {
+		this.update_date = new Date();;
 	}
 
-	public void setApproval(String approval) {
-		this.approval = approval;
+	public String getDataid() {
+		return dataid;
 	}
 
-	public String getFlowData() {
-		return flowData;
-	}
-
-	public void setFlowData(String flowData) {
-		this.flowData = flowData;
+	public void setDataid(String dataid) {
+		this.dataid = dataid;
 	}
 
 	public int getUserName() {
@@ -88,19 +110,23 @@ public class FlowApprovalData {
 		this.turn = turn;
 	}
 
-	public int getApprove() {
-		return approve;
+	
+	public int getLevUser() {
+		return levUser;
 	}
 
-	public void setApprove(int approve) {
-		this.approve = approve;
+	public void setLevUser(int levUser) {
+		this.levUser = levUser;
 	}
 
-	@Override
-	public String toString() {
-		return "FlowApprovalData [id=" + id + ", approval=" + approval + ", flowData=" + flowData + ", userName="
-				+ userName + ", turn=" + turn + ", approve=" + approve + "]";
+	public int getApproved() {
+		return approved;
 	}
 
-    
+	public void setApproved(int approved) {
+		this.approved = approved;
+	}
+
+	
+	
 }
